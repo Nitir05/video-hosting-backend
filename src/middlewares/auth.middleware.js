@@ -5,15 +5,15 @@ import jwt from "jsonwebtoken";
 export const verifyJwt = asyncHandler(async (req, _, next) => {
     //"_" is used as we are not using res
     try {
-        const accessTokem =
+        const accessToken =
             req.cookies?.accessToken ||
             req.header("Authorization")?.replace("Bearer ", "");
-        if (!accessTokem) {
+        if (!accessToken) {
             throw new ApiError(401, "Unauthorized access");
         }
 
         const decodedToken = jwt.verify(
-            accessTokem,
+            accessToken,
             process.env.ACCESS_TOKEN_SECRET
         );
 
